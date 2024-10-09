@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+  clarus_node_agent:
+    
+    build: .
+    #image: clarusproject/clarus_node_agent:v1.0.0
+    image: clarus_node_agent:0.0.1
+    hostname: clarus_node_agent
+    container_name: clarus_node_agent
+    #restart: unless-stopped
+    networks:
+      - clarus_node_network
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config.json:/root/.docker/config.json
+      - clarus_models:/app/models
+     
+    ports:
+      - 8081:8081
+    environment:
+      -  MLFLOW_TRACKING_URI=$(MLFLOW_TRACKING_URI)
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
+
+networks:
+  clarus_node_network: {}
+       
+volumes:
+  clarus_models : {}
