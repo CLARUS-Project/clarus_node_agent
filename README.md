@@ -19,9 +19,7 @@ The credentials to pull images from docker hub  are saved in the Polimi reposito
     ```
     ./git clone https://github.com/CLARUS-Project/clarus_node_agent
     ``` 
-Once repository is cloned you should see next folder tree
 
-![Files](images/xxx.png)
 
 ### Start service
 Move to the folder where the repo has been cloned.
@@ -42,19 +40,23 @@ Move to the folder where the repo has been cloned.
     ```
 You shall see next services up:
 
-![clarus_node_agent_service](images/XXX.png)
+![clarus_node_agent_service](images/agent_node_deploy.png)
 
 
 ## Usage
 
-Once the service is up and running, it provides a REST API that can be used for other processes running in the pilot plant machines. The REST API can be reached with a web browser at http://<IP where clarus_node_agent is deployed>:8081/swagger
+Once the service is up and running, it provides a REST API that can be used for other processes running in the pilot plant machines. The REST API can be reached with a web browser at http://<IP_where_clarus_node_agent_is_deployed>:8081/swagger
 
 These are the functionalities covered by the REST API.
 
-- [x] /api/ping
+  ![clarus_node_agent_ping](images/rest_ping.png)
+
+- [x] /api/ping.
   This path is for health check support
 
-- [x] /api/inference/deploy (POST)
+  ![clarus_node_agent_inference](images/rest_inference.png)
+
+- [x] /api/inference/deploy (POST).
    This path will pull an inference docker image and  run it as a service in a docker container. The body request need two parameters:
     ```
     "exp_id": Experiment identifier. Inference service is valid for that experiment and will use this identifier as container name.
@@ -62,18 +64,19 @@ These are the functionalities covered by the REST API.
     ```
     
 
-- [x] /api/inference/deploy (DELETE)
+- [x] /api/inference/deploy (DELETE).
 This path will stop and remove an inference service container. The path requires the next mandatory parameter.
     ```
     "exp_id": Experiment identifier to remove. Inference service is valid for that experiment and will use this identifier as container name.
     
     ```
 
-- [x] /api/inference/all (GET)
+- [x] /api/inference/all (GET).
 This path will provide information about the inference containers that are running in the host where the node agent is deployed. The information contains Inference ID and port where the execution service is provided.
 
-- [x] /api/mlflow/model (PUT)
+  ![clarus_node_agent_model](images/rest_model.png)
 
+- [x] /api/mlflow/model (PUT).
 This path will download the best model for an experiment(stagged as production in mlflow) from the mlflow repository at MLOPs platform. This model will contain the weights needed to execute the inference. This model will be saved in a docker volume shared with all the inference services downloaded. The body request need one parameter:
     ```
     "exp_id": Experiment identifier. Model has been trainned for this experiment.    
