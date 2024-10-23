@@ -20,6 +20,15 @@ The credentials to pull images from docker hub  are saved in the Polimi reposito
     ./git clone https://github.com/CLARUS-Project/clarus_node_agent
     ``` 
 
+### Add docker registry in Training Platform as an insecure registry
+- Move to file /etc/docker/daemon.json (create if it doesn´t exist)
+- Add in the "insecure-registries" entry
+  
+  ```
+      "insecure-registries": [
+          "34.250.205.215:5001"
+      ]
+    ```
 
 ### Start service
 Move to the folder where the repo has been cloned.
